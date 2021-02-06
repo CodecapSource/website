@@ -29,7 +29,25 @@ class Country {
         if ($s->rowCount() > 0) {
             return ['status' => true, 'type' => 'success', 'data' => $s->fetch()];
         }
-        return ['status' => false, 'type' => 'empty', 'data' => 'no organiser not found!'];
+        return ['status' => false, 'type' => 'empty', 'data' => 'no country not found!'];
+    }
+
+    public function get_all()
+    {
+        $q = "SELECT * FROM `".$this->table_name."`";
+        $s = $this->db->prepare($q);
+        
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.get_all - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+
+        if ($s->rowCount() > 0) {
+            return ['status' => true, 'type' => 'success', 'data' => $s->fetchAll()];
+        }
+
+        return ['status' => false, 'type' => 'empty', 'data' => 'no countries not found!'];
     }
     
 }
