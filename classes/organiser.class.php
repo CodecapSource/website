@@ -92,5 +92,19 @@ class Organiser {
         }
         return [$cols, $_cols, $vals];
     }
+
+    public function update_balance ($balance, $organiser_id)
+    {
+        $q = "UPDATE `".$this->table_name."` SET `or_balance` = :b WHERE `or_id` = :o";
+        $s = $this->db->prepare($q);
+        $s->bindParam(":b", $balance);
+        $s->bindParam(":o", $organiser_id);
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.update_balance - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+        return ['status' => true, 'type' => 'success', 'data' => 'balance is successfully updated.'];
+    }
     
 }

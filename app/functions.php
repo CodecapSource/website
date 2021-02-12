@@ -22,9 +22,15 @@ function normal_date($date, $format = 'M d, Y h:i A')
     return date_format($d, $format);
 }
 
-function current_date($format = 'M d, Y h:i A')
+function current_date($format = 'Y-m-d H:i:s')
 {
     return date($format);
+}
+
+function normal_to_db_date($date, $format = 'Y-m-d H:i:s')
+{
+    $d = date_create($date);
+    return date_format($d, $format);
 }
 
 function get_date_difference ($from, $to) { 

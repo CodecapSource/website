@@ -1,3 +1,8 @@
+<?php if (!empty($errors)): ?>
+    <p style="color: red"><?php foreach($errors as $error): ?> <?=$error . '. '?> <?php endforeach; ?></p>
+<?php endif; ?>
+
+<?php if ($show): ?>
 <form action="" method="post">
     <input type="text" name="event_name" id="event_name" placeholder="Event Name" value="<?=$_POST['event_name'] ?? ''?>">
 
@@ -43,4 +48,4 @@
     
     <button type="submit">Create</button>
 </form>
-
+<?php endif; ?>
