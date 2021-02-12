@@ -65,3 +65,28 @@ function go ($URL)
     header("location: $URL");
     die();
 }
+
+function get_event_status_text ($event_status)
+{
+    if ($event_status === 'A') {
+        return 'Active';
+    }
+    if ($event_status === 'D') {
+        return 'Disabled';
+    }
+    if ($event_status === 'C') {
+        return 'Completed';
+    }
+    return '';
+}
+
+function get_event_type_text ($event_type)
+{
+    if ($event_type === 'V') {
+        return 'Online';
+    }
+    if ($event_type === 'P') {
+        return 'Onsite';
+    }
+    return '';
+}
