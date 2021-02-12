@@ -71,7 +71,7 @@ if (isset($_POST) && !empty($_POST)) {
 
     if (empty($invalid_fields)) {
 
-        $_SESSION['logged'] = $found_user['or_id'];
+        $_SESSION['organiser_logged'] = $found_user['or_id'];
         go (URL . '/organiser/dashboard.php');
 
     } else {

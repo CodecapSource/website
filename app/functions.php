@@ -27,6 +27,16 @@ function current_date($format = 'M d, Y h:i A')
     return date($format);
 }
 
+function get_date_difference ($from, $to) { 
+    $from = new DateTime(date("Y-m-d\TH:i:sP",  strtotime($from)));
+    $to= new DateTime(date("Y-m-d\TH:i:sP",  strtotime($to)));
+
+    $diff = $from->diff($to);
+    $age = ['years' => $diff->y, 'months' => $diff->m, 'days' => $diff->d, 'hours' => $diff->h, 'minutes' => $diff->i, 'seconds' => $diff->s, 'positive' => $diff->invert === 1 ? true : false];
+    
+    return $age;
+}
+
 function get_ip()
 {
     /* if share internet */
