@@ -97,6 +97,27 @@ class Events
         }
 
     }
+
+    public function get_one_details_by_id ($event_id)
+    {
+        
+        $q = "SELECT * FROM `events` JOIN `countries` ON `event_country_iso` = `country_iso` WHERE `event_id` = :i";
+        
+        $s = $this->db->prepare($q);
+        $s->bindParam(":i", $event_id);
+        
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.get_one_details_by_id - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+
+        if (!$s->rowCount()) {
+            return ['status' => false, 'type' => 'empty', 'data' => 'Event not found.'];
+        }
+
+        return ['status' => true, 'type' => 'success', 'data' => $s->fetch()];
+    }
     
 }
 

@@ -36,3 +36,13 @@
     $settings = new Settings($db);
     
     define('URL', $settings->protocol().'://'.$settings->site_url());
+
+    // checking for session message
+    if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
+        if ($_SESSION['message']['type'] === 'success') {
+            $s_success = $_SESSION['message']['data'];
+        } else if ($_SESSION['message']['type'] === 'error') {
+            $s_error = $_SESSION['message']['data'];
+        }
+        unset($_SESSION['message']);
+    }

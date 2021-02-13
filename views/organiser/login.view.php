@@ -6,7 +6,7 @@
 <?php endif; ?>
 
 <form action="" method="post">
-    <input type="text" name="email" id="email">
+    <input type="text" name="email" id="email" value="<?=$_POST['email']??''?>">
     <input type="password" name="password" id="password">
     <button type="submit">Login</button>
 </form>

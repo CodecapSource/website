@@ -36,6 +36,8 @@ if (isset($_POST) && !empty($_POST)) {
                 $found_user = $organiser->get_one("or_email", $_email);
                 if (!$found_user['status']) {
                     array_push($invalid_fields, ["field" => "email", "type" => "invalid", "data" => "Email does not exists"]);
+                } else if ($found_user['data']['or_account_status'] !== 'A') {
+                    array_push($invalid_fields, ["field" => "account", "type" => "invalid", "data" => "Your account is flagged. Contact support."]);
                 } else {
                     $data_bag["or_email"] = $_email;
                     $found_user = $found_user['data'];
@@ -53,9 +55,9 @@ if (isset($_POST) && !empty($_POST)) {
             $_password = normal_text($data["password"]);
             $password_length = 4;
 
-            if (strlen($_password) < $password_length) {   
+            if (strlen($_password) < $password_length) {
                 array_push($invalid_fields, ["field" => "password", "type" => "length", "data" => "Length must be minimum $password_length characters"]);
-            } else if (!empty($found_user) && isset($found_user['status']) && $found_user['status']) {
+            } else if (!empty($found_user) && isset($found_user['or_password'])) {
                 if(!password_verify($_password, $found_user['or_password'])) {
                     array_push($invalid_fields, ["field" => "password", "type" => "length", "data" => "Password is incorrect"]);
                 } else {
