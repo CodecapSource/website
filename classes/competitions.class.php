@@ -47,6 +47,45 @@ class Competitions
     }
 
 
+    public function get_all_competitions ()
+    {
+        $q = "SELECT * FROM `".$this->table_name."` JOIN `events` ON `competition_event_id` = `event_id`";
+        
+        $s = $this->db->prepare($q);
+        
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.get_all_competitions - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+
+        if (!$s->rowCount()) {
+            return ['status' => false, 'type' => 'empty', 'data' => 'Competitions not found.'];
+        }
+
+        return ['status' => true, 'type' => 'success', 'data' => $s->fetchAll()];
+    }
+
+    
+    public function get_all_competitions_details ()
+    {
+        $q = "SELECT * FROM `".$this->table_name."` JOIN `events` ON `competition_event_id` = `event_id` JOIN `countries` ON `event_country_iso` = `country_iso`";
+        
+        $s = $this->db->prepare($q);
+        
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.get_all_competitions_details - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+
+        if (!$s->rowCount()) {
+            return ['status' => false, 'type' => 'empty', 'data' => 'Competitions not found.'];
+        }
+
+        return ['status' => true, 'type' => 'success', 'data' => $s->fetchAll()];
+    }
+
     public function get_all_event_competitions ($event_id)
     {
         $q = "SELECT * FROM `".$this->table_name."` JOIN `events` ON `competition_event_id` = `event_id` WHERE `competition_event_id` = :i";
