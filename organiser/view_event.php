@@ -36,8 +36,9 @@ $c = new Competitions($db);
 $competitions = $c->get_all_event_competitions($event['event_id']);
 if (!$competitions['status']) {
     $competitions = [];
+} else {
+    $competitions = $competitions['data'];
 }
-$competitions = $competitions['data'];
 
 
 include '../views/layout/header.view.php';

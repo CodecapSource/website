@@ -1,3 +1,10 @@
+<?php if (isset($s_success) && !empty($s_success)): ?>
+    <p style="color: green"><?=$s_success?></p>
+<?php endif; ?>
+<?php if (isset($s_error) && !empty($s_error)): ?>
+    <p style="color: red"><?=$s_error?></p>
+<?php endif; ?>
+
 <?php if (!empty($errors)): ?>
     <p style="color: red"><?php foreach($errors as $error): ?> <?=$error . '. '?> <?php endforeach; ?></p>
 <?php endif; ?>

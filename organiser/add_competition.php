@@ -33,7 +33,6 @@ $event = $event['data'];
 $errors = [];
 
 if (isset($_POST) && !empty($_POST)) {
-    var_dump($_POST);
 
     if (isset($_POST['name']) && is_string($_POST['name']) && !empty(normal_text($_POST['name']))) {
         $name = normal_text($_POST['name']);

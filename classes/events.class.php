@@ -100,7 +100,6 @@ class Events
 
     public function get_one_details_by_id ($event_id)
     {
-        
         $q = "SELECT * FROM `events` JOIN `countries` ON `event_country_iso` = `country_iso` WHERE `event_id` = :i";
         
         $s = $this->db->prepare($q);

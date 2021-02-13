@@ -1,6 +1,9 @@
 <?php if (isset($s_success) && !empty($s_success)): ?>
     <p style="color: green"><?=$s_success?></p>
 <?php endif; ?>
+<?php if (isset($s_error) && !empty($s_error)): ?>
+    <p style="color: red"><?=$s_error?></p>
+<?php endif; ?>
 
 <h3>Competitions</h3>
 <a href="<?=URL?>/organiser/add_competition.php?e=<?=$event['event_id']?>">Add Competition</a>
