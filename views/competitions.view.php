@@ -1,5 +1,9 @@
 <h1>Competitions - <small><small>total available - <?=$_no_of_competitions?></small></small></h1>
 
+<?php if (isset($s_error) && !empty($s_error)): ?>
+    <p style="color: red"><?=$s_error?></p>
+<?php endif; ?>
+
 <ul>
 <?php foreach ($competitions as $competition): ?>
     <li>
@@ -17,7 +21,7 @@
             <br><?=($competition['event_location_type'] === 'V') ? 'Online' : 'Onsite <a href="">Location</a>'?>
             <br><?=$competition['country_name']?> <img src="https://www.countryflags.io/<?=$competition['country_iso']?>/shiny/24.png" alt="<?=$competition['country_name']?>">
             <br>
-            <a href="<?=URL?>/launchpad">Participate</a>
+            <a href="<?=URL?>/launchpad/participate.php?c=<?=$competition['competition_id']?>">Participate</a>
         </p>
     </li>
 <?php endforeach; ?>
