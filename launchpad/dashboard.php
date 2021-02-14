@@ -6,8 +6,8 @@ include '../app/start.php';
 if (!isset($_SESSION['member_logged']) || empty($_SESSION['member_logged']) || !is_numeric($_SESSION['member_logged'])) {
     go (URL . '/launchpad/login.php');
 }
-$o = new Members($db);
-$user = $o->get_one('member_id', $_SESSION['member_logged']);
+$m = new Members($db);
+$user = $m->get_one('member_id', $_SESSION['member_logged']);
 if (!$user['status'] || $user['data']['member_account_status'] !== 'A') {
     unset($_SESSION['member_logged']);
     go (URL . '/launchpad/login.php');

@@ -58,4 +58,50 @@ class Questions
 
         return ['status' => true, 'type' => 'success', 'data' => 'Data is successfully inserted.'];
     }
+
+    public function get_submissions_of ($team, $competition)
+    {
+        $q = "SELECT * FROM `submissions` JOIN `questions` ON `submission_question_id` = `question_id` WHERE `submission_team_id` = :t AND `question_competition_id` = :c";
+        
+        $s = $this->db->prepare($q);
+        $s->bindParam(":c", $competition);
+        $s->bindParam(":t", $team);
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.get_submissions_of - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+        if (!$s->rowCount()) {
+            return ['status' => false, 'type' => 'empty', 'data' => 'Submissions not found.'];
+        }
+
+        return ['status' => true, 'type' => 'success', 'data' => $s->fetchAll()];
+    }
+
+    public function set_blank_submissions ($team, $questions)
+    {
+        $vals = "";
+        foreach ($questions as $i => $question) {
+            if ($i > 0) {
+                $vals .= ", ";
+            }
+            $vals .= "('".$question['question_id']."', :t, :dt)";
+        }
+
+        $q = "INSERT INTO `submissions` (`submission_question_id`, `submission_team_id`, `submission_created`) VALUES $vals";
+
+        $s = $this->db->prepare($q);
+        $s->bindParam(":t", $team);
+        $dt = current_date();
+        $s->bindParam(":dt", $dt);
+
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.set_blank_submission - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+
+        return ['status' => true, 'type' => 'success', 'data' => 'Data is successfully inserted.'];
+    }
+
 }

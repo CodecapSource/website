@@ -72,4 +72,25 @@ class Members
         return ['status' => true, 'type' => 'success', 'data' => 'balance is successfully updated.'];
     }
 
+    public function get_all_participations_of ($member_id, $status)
+    {
+        $q = "SELECT * FROM `participants` JOIN `teams` ON `participant_team_id` = `team_id` JOIN `competitions` ON `team_competition_id` = `competition_id` WHERE `participant_member_id` = :m AND `team_status` = :s";
+        $s = $this->db->prepare($q);
+        $s->bindParam(":m", $member_id);
+        $s->bindParam(":s", $status);
+
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.get_all_participations_of - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+        
+        if ($s->rowCount() > 0) {
+            return ['status' => true, 'type' => 'success', 'data' => $s->fetchAll()];
+        }
+        return ['status' => false, 'type' => 'empty', 'data' => 'no participations found!'];
+
+    }
+    
+
 }

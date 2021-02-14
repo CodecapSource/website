@@ -126,5 +126,36 @@ class Competitions
         return ['status' => true, 'type' => 'success', 'data' => $s->fetch()];
     }
 
+    public function validate_compete ($member, $competition, Teams $t)
+    {
+        $q = "SELECT * FROM `participants` JOIN `members` ON `participant_member_id` = `member_id` JOIN `teams` ON `participant_team_id` = `team_id` WHERE `member_id` = :mi AND `team_competition_id` = :ci";
+
+        $s = $this->db->prepare($q);
+        $s->bindParam(":mi", $member);
+        $s->bindParam(":ci", $competition);
+        
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.validate_compete - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+
+        if (!$s->rowCount()) {
+            return ['status' => false, 'type' => 'empty', 'data' => 'Participation not found.'];
+        }
+
+        $p = $s->fetch();
+
+        $members = $t->get_participants_of_team($p['team_id']);
+        if ($members['status']) {
+            $p['members'] = $members['data'];
+        } else {
+            $p['members'] = [];
+        }
+
+        return ['status' => true, 'type' => 'success', 'data' => $p];
+    }
+    
+
 
 }

@@ -121,5 +121,23 @@ class Teams {
         return ['status' => true];
     }
 
+    public function get_participants_of_team ($team_id)
+    {
+        $q = "SELECT * FROM `participants` JOIN `members` ON `participant_member_id` = `member_id` WHERE `participant_team_id` = :t";
+
+        $s = $this->db->prepare($q);
+        $s->bindParam(":t", $team_id);
+
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.get_participants_of_team - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+        
+        if ($s->rowCount() > 0) {
+            return ['status' => true, 'type' => 'success', 'data' => $s->fetchAll()];
+        }
+        return ['status' => false, 'type' => 'empty', 'data' => 'no participations found!'];
+    }
 
 }
