@@ -55,7 +55,21 @@ class Members
         }
         
         return ['status' => true, 'type' => 'success', 'data' => 'member successfully inserted'];
+    }
 
+    public function update_balance ($balance, $spent, $member_id)
+    {
+        $q = "UPDATE `".$this->table_name."` SET `member_balance` = :b, `member_spent` = :s WHERE `member_id` = :m";
+        $s = $this->db->prepare($q);
+        $s->bindParam(":b", $balance);
+        $s->bindParam(":s", $spent);
+        $s->bindParam(":m", $member_id);
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.update_balance - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+        return ['status' => true, 'type' => 'success', 'data' => 'balance is successfully updated.'];
     }
 
 }

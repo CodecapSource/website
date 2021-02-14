@@ -53,7 +53,7 @@ if (isset($_POST) && !empty($_POST)) {
 
     if (isset($_POST['confirm'])) {
         // checking for the members
-        $confirm_members = [[$user['member_id'], $user['member_name']]];
+        $confirm_members = [[$user['member_id'], $user['member_name'], true]];
         $to_validate = [];
 
         if ($competition['competition_member_max'] > 1) {
@@ -91,7 +91,7 @@ if (isset($_POST) && !empty($_POST)) {
                     } else if ($member['data']['member_account_status'] !== 'A') {
                         array_push($errors, "Member '".$email."' account is not active");
                     } else {
-                        array_push($confirm_members, [$member['data']['member_id'], $member['data']['member_name']]);
+                        array_push($confirm_members, [$member['data']['member_id'], $member['data']['member_name'], false]);
                     }
                 }
                 
@@ -110,10 +110,25 @@ if (isset($_POST) && !empty($_POST)) {
 
                 $transaction = true;
 
-                if ($_POST['deduct']) {
+                if (isset($_POST['deduct'])) {
 
                     // -- TODO: create pdo transaction deduct balance, add participant table
+                    $t = new Teams($db);
 
+                    $previous_balance = $user['member_balance'];
+                    $current_balance = $previous_balance - $cost;
+                    $new_spent = $user['member_spent'] + $cost;
+                    $info = "Participation fee deduction for '".$competition['competition_name']."'";
+                    $r = $t->create_team($confirm_members, $competition['competition_id'], $cost, $previous_balance, $current_balance, $new_spent, $info, $m);
+
+                    if ($r['status']) {
+                        
+                        $_SESSION['message'] = ['type' => 'success', 'data' => 'You are successfully registered for <b>'.$competition['competition_name'].'</b>'];
+                        go(URL.'/launchpad/dashboard.php');
+
+                    }
+
+                    array_push($errors, $r['data']);
                 }
 
             } else {

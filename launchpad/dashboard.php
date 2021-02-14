@@ -18,6 +18,10 @@ var_dump($user);
 
 ?>
 
+<?php if (isset($s_success) && !empty($s_success)): ?>
+    <p style="color: green"><?=$s_success?></p>
+<?php endif; ?>
+
 <a href="<?=URL?>/competitions.php">Competitions</a>
 <a href="<?=URL?>/launchpad/participations.php">Participations</a>
 <a href="<?=URL?>/launchpad/transactions.php">Transactions</a>
