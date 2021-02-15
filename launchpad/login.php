@@ -66,25 +66,8 @@ if (isset($_POST) && !empty($_POST)) {
 }
 
 
-?>
+$header = false;
 
-
-<?php if (isset($s_success) && !empty($s_success)): ?>
-    <p style="color: green"><?=$s_success?></p>
-<?php endif; ?>
-<?php if (isset($s_error) && !empty($s_error)): ?>
-    <p style="color: red"><?=$s_error?></p>
-<?php endif; ?>
-
-<?php if (!empty($errors)): ?>
-    <p style="color: red"><?php foreach($errors as $error): ?> <?=$error . '. '?> <?php endforeach; ?></p>
-<?php endif; ?>
-
-<form action="" method="post">
-
-    <input type="email" name="email" id="email" placeholder="Email" value="<?=$_POST['email']??''?>">
-
-    <input type="password" name="password" id="password" placeholder="Password">
-
-    <button type="submit">Login</button>
-</form>
+include '../views/layout/public_header.view.php';
+include '../views/launchpad/login.view.php';
+include '../views/layout/public_footer.view.php';

@@ -115,6 +115,8 @@ if ($countries['status']) {
     $countries = [];
 }
 
-include '../views/layout/header.view.php';
+$header = false;
+
+include '../views/layout/public_header.view.php';
 include '../views/organiser/signup.view.php';
-include '../views/layout/footer.view.php';
+include '../views/layout/public_footer.view.php';

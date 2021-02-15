@@ -4,19 +4,12 @@
         <div class="window-title"><small>Become</small> <span>Codecaper</span>!</div>
         <div class="window-form">
             <form action="" method="post">
-                <?php if (isset($response)): ?>
-                    <?php if ($response['status']): ?>
-                        <div class="message success">Successfully registered. <a href="<?=URL?>/organiser/login.php">Login now!</a></div>
-                    <?php else: ?>
-                        <div class="message error">
-                        <?php foreach ($response['data'] as $r): ?>
-                            <b><?=ucfirst($r['field'])?></b> <?=$r['data'].'. '?>
-                        <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
+                <?php if (!empty($errors)): ?>
+                    <div class="message error"><?php foreach($errors as $error): ?> <?=$error . '. '?> <?php endforeach; ?></div>
                 <?php endif; ?>
+
                 <div class="input input-text">
-                    <label for="fullname">Organiser Name</label>
+                    <label for="fullname">Full Name</label>
                     <input type="text" id="fullname" name="name" placeholder="full name" value="<?=$_POST['name']??''?>">
                 </div>
                 <div class="input input-text">
@@ -27,6 +20,10 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" placeholder="enter password">
                 </div>
+                <div class="input input-text">
+                    <label for="repassword">Confirm Password</label>
+                    <input type="password" id="repassword" name="repassword" placeholder="re-enter password">
+                </div>
                 <div class="input input-select input-country">
                     <label for="country">Country</label>
                     <div class="country-preview"><img src="https://www.countryflags.io/pk/shiny/48.png"></div>
@@ -36,10 +33,13 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div class="input input-text">
+                    <label for="contact">Contact</label>
+                    <input type="text" id="contact" name="contact" placeholder="phone number digits" value="<?=$_POST['contact']??''?>">
+                </div>
                 <div class="input-submit">
                     <button type="submit"><i class="fas fa-arrow-right"></i> Start</button>
                 </div>
-
             </form>
         </div>
     </div>

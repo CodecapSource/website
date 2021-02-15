@@ -113,26 +113,8 @@ if ($countries['status']) {
     $countries = [];
 }
 
-?>
+$header = false;
 
-
-<?php if (!empty($errors)): ?>
-    <p style="color: red"><?php foreach($errors as $error): ?> <?=$error . '. '?> <?php endforeach; ?></p>
-<?php endif; ?>
-
-<form action="" method="post">
-    <input type="text" name="name" id="name" placeholder="Full Name" value="<?=$_POST['name']??''?>">
-    <input type="email" name="email" id="email" placeholder="Email" value="<?=$_POST['email']??''?>">
-    <input type="password" name="password" id="password" placeholder="Password">
-    <input type="password" name="repassword" id="repassword" placeholder="Confirm Password">
-
-    <select name="country" id="country">
-        <?php foreach ($countries as $c): ?>
-        <option value="<?=$c['country_iso']?>" <?=(isset($_POST['country'])) ? ($c['country_iso'] === $_POST['country'] ? 'selected' : '') : ($c['country_iso'] === 'PK' ? 'selected' : '')?>><?=$c['country_name']?></option>
-        <?php endforeach; ?>
-    </select>
-    <input type="text" name="contact" id="contact" placeholder="Mobile" value="<?=$_POST['contact']??''?>">
-    
-
-    <button type="submit">Create</button>
-</form>
+include '../views/layout/public_header.view.php';
+include '../views/launchpad/signup.view.php';
+include '../views/layout/public_footer.view.php';

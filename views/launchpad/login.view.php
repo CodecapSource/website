@@ -2,7 +2,7 @@
     <div class="window-center">
         <div class="window-logo"><a href="<?=URL?>/"><img src="<?=URL?>/assets/images/logo-dark.svg" alt="Codecap"></a></div>
         <div class="window-title">Login!</div>
-        <div class="window-title-sub">Access to your organiser panel</div>
+        <div class="window-title-sub">Access to your launchpad</div>
         <div class="window-form">
             <form action="" method="post">
                 <?php if (isset($s_success) && !empty($s_success)): ?>
@@ -11,13 +11,8 @@
                 <?php if (isset($s_error) && !empty($s_error)): ?>
                     <div class="message error"><?=$s_error?></div>
                 <?php endif; ?>
-
-                <?php if (isset($response)): ?>
-                    <div class="message error">
-                    <?php foreach ($response['data'] as $r): ?>
-                        <b><?=ucfirst($r['field'])?></b> <?=$r['data'].'. '?>
-                    <?php endforeach; ?>
-                    </div>
+                <?php if (!empty($errors)): ?>
+                    <div class="message error"><?php foreach($errors as $error): ?> <?=$error . '. '?> <?php endforeach; ?></div>
                 <?php endif; ?>
                 <div class="input input-text">
                     <label for="email">Email</label>
