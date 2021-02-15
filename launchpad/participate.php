@@ -53,7 +53,7 @@ if (isset($_POST) && !empty($_POST)) {
 
     if (isset($_POST['confirm'])) {
         // checking for the members
-        $confirm_members = [[$user['member_id'], $user['member_name'], true]];
+        $confirm_members = [[$user['member_id'], $user['member_name'], true, $user['member_email']]];
         $to_validate = [];
 
         if ($competition['competition_member_max'] > 1) {
@@ -91,7 +91,7 @@ if (isset($_POST) && !empty($_POST)) {
                     } else if ($member['data']['member_account_status'] !== 'A') {
                         array_push($errors, "Member '".$email."' account is not active");
                     } else {
-                        array_push($confirm_members, [$member['data']['member_id'], $member['data']['member_name'], false]);
+                        array_push($confirm_members, [$member['data']['member_id'], $member['data']['member_name'], false, $member['data']['member_email']]);
                     }
                 }
                 
@@ -142,68 +142,9 @@ if (isset($_POST) && !empty($_POST)) {
 
 }
 
+$header = false;
+$member_header = true;
 
-?>
-
-
-<?php if ($transaction): ?>
-
-    <h3>Transaction</h3>
-
-    <p>Total Participation cost - <b><?=$cost?></b></p>
-
-    <p>Your Members:</p>
-    <ul>
-        <?php foreach ($confirm_members as $member): ?>
-            <li><?=$member[1]?></li>
-        <?php endforeach; ?>
-    </ul>
-
-<?php endif; ?>
-
-<h3>Participating in <?=$competition['competition_name']?></h3>
-
-<p>Fees - <b><?=$competition['competition_cost']?> codn <?=($competition['competition_cost_type'] === 'M')?'Per member':'Per team'?></b></p>
-
-<p>Team Limit, Min - <b><?=$competition['competition_member_min']?></b> &nbsp; Max - <b><?=$competition['competition_member_max']?></b></p>
-
-<p>Rules - <?=$competition['competition_rules']?></p>
-
-<p>Timing, Start - <b><?=normal_date($competition['competition_starts'])?></b> &nbsp; Ends - <b><?=normal_date($competition['competition_ends'])?></b></p>
-
-<p>Organiser - <?=$competition['event_organiser_name']?></p>
-
-
-<?php if (!empty($errors)): ?>
-    <p style="color: red"><?php foreach($errors as $error): ?> <?=$error . '. '?> <?php endforeach; ?></p>
-<?php endif; ?>
-
-<form action="" method="post">
-    <input type="hidden" name="confirm" value="">
-
-    <?php if ($transaction): ?>
-        <input type="hidden" name="deduct" value="">
-    <?php endif; ?>
-
-    <?php if ($competition['competition_member_max'] > 1): ?>
-    <h3>Add members</h3>
-    <div id="teammembers">
-        <?php for ($n = 1; $n < $competition['competition_member_max']; $n++): ?>
-            <input type="email" name="members[]" class="members" placeholder="Member <?=$n+1?> email" value="<?=isset($_POST['members'][$n-1]) ? $_POST['members'][$n-1] : ''?>">
-        <?php endfor; ?>
-    </div>
-    <?php endif; ?>
-
-    <?php if ($transaction): ?>
-        
-        <?php if ($cost <= $user['member_balance']): ?>
-            <button type="submit">Complete!</button>
-        <?php else: ?>
-            <p>You have insufficient balance to confirm the transaction. <a href="<?=URL?>/launchpad/deposit.php">Deposit</a></p>
-        <?php endif; ?>
-
-    <?php else: ?>
-        <button type="submit">Confirm</button>
-    <?php endif; ?>
-</form>
-
+include '../views/layout/public_header.view.php';
+include '../views/launchpad/participate.view.php';
+include '../views/layout/public_footer.view.php';
