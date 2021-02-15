@@ -1580,13 +1580,13 @@ a:hover {
   font-size: 2em;
 }
 
-.participate-form .team-members {
+.team-members {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.participate-form .team-members p {
+.team-members p {
   font-size: 0.9em;
   font-weight: 700;
   text-transform: uppercase;
@@ -1596,7 +1596,7 @@ a:hover {
   margin-right: 0.3em;
 }
 
-.participate-form .team-members ul {
+.team-members ul {
   list-style: none;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1605,7 +1605,7 @@ a:hover {
       flex-wrap: wrap;
 }
 
-.participate-form .team-members ul li {
+.team-members ul li {
   font-size: 0.9em;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1619,13 +1619,173 @@ a:hover {
   font-weight: 400;
 }
 
-.participate-form .team-members ul li i {
+.team-members ul li i {
   color: #84a29e;
   margin-right: 0.3em;
 }
 
-.participate-form .team-members ul li span {
+.team-members ul li span {
   font-weight: 300;
   margin-left: 0.4em;
+}
+
+.dashboard-page {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: block;
+  min-height: 70vh;
+}
+
+.dashboard-page .dashboard-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 1em 0;
+}
+
+.dashboard-page .dashboard-left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.dashboard-page .dashboard-left-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #ffffff;
+  -webkit-box-shadow: 2px 4px 10px 5px rgba(0, 0, 0, 0.05);
+          box-shadow: 2px 4px 10px 5px rgba(0, 0, 0, 0.05);
+  padding: 1em;
+}
+
+.dashboard-page .dashboard-left .dashboard-text {
+  border-bottom: 1px solid #edf0f1;
+  padding-bottom: 1em;
+}
+
+.dashboard-page .dashboard-left .dashboard-text h4 {
+  font-size: 0.9em;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.dashboard-page .dashboard-left .dashboard-text h2 {
+  font-size: 1.4em;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.dashboard-page .dashboard-left .dashboard-text p {
+  color: #a3b6b7;
+  font-size: 0.9em;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.dashboard-page .dashboard-left .dashboard-text p span {
+  font-weight: 700;
+}
+
+.dashboard-page .dashboard-left .dashboard-balance-row {
+  padding: 0.8em 1em 0.8em 2em;
+}
+
+.dashboard-page .dashboard-left .dashboard-balance-row:not(:last-child) {
+  border-bottom: 1px solid #edf0f1;
+}
+
+.dashboard-page .dashboard-left .dashboard-balance-row h3 {
+  font-size: 1.4em;
+  text-transform: uppercase;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.dashboard-page .dashboard-left .dashboard-balance-row h3 .codn-icon-text {
+  font-size: 0.7em;
+  margin-left: 0.5em;
+}
+
+.dashboard-page .dashboard-left .dashboard-balance-row p {
+  font-size: 0.9em;
+  color: #a3b6b7;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.dashboard-page .dashboard-right {
+  -webkit-box-flex: 3;
+      -ms-flex: 3;
+          flex: 3;
+}
+
+.dashboard-content {
+  width: 100%;
+  padding: 0em 2em 1em 2em;
+}
+
+.dashboard-content-title {
+  font-size: 1.4em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #a3b6b7;
+  margin-top: 1em;
+}
+
+.dashboard-content table {
+  margin-bottom: 1em;
+}
+
+.dashboard-content-link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+table {
+  width: 100%;
+  border: 1px solid #edf0f1;
+  border-collapse: collapse;
+}
+
+table thead th {
+  border-bottom: 2px solid #4bcc78;
+  background: -webkit-gradient(linear, left top, right top, from(#282f39), to(#39424e));
+  background: linear-gradient(90deg, #282f39, #39424e);
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+table th, table td {
+  font-size: 1em;
+  padding: 0.4em 1em;
+}
+
+table td {
+  border-bottom: 1px solid #e4e4e8;
 }
 /*# sourceMappingURL=main.css.map */

@@ -14,14 +14,30 @@ if (!$user['status'] || $user['data']['member_account_status'] !== 'A') {
 }
 $user = $user['data'];
 
-var_dump($user);
+$t = new Teams($db);
 
-?>
+$active_participations = $m->get_all_participations_of($user['member_id'], 'A');
+if (!$active_participations['status']) {
+    $active_participations = [];
+} else {
+    $active_participations = $active_participations['data'];
 
-<?php if (isset($s_success) && !empty($s_success)): ?>
-    <p style="color: green"><?=$s_success?></p>
-<?php endif; ?>
+    foreach ($active_participations as $i => $participation) {
+        $r = $t->get_participants_of_team($participation['team_id']);
+        if ($r['status']) {
+            $r = $r['data'];
+        } else {
+            $r = [];
+        }
+        $participation['members'] = $r;
+        $active_participations[$i] = $participation;
+    }
+}
 
-<a href="<?=URL?>/competitions.php">Competitions</a>
-<a href="<?=URL?>/launchpad/participations.php">Participations</a>
-<a href="<?=URL?>/launchpad/transactions.php">Transactions</a>
+
+$header = false;
+$member_header = true;
+
+include '../views/layout/public_header.view.php';
+include '../views/launchpad/dashboard.view.php';
+include '../views/layout/public_footer.view.php';

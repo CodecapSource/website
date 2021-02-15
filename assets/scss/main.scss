@@ -1342,45 +1342,185 @@ a {
             font-size: 2em;
         }
     }
+    
+}
 
-    .team-members {
+
+.team-members {
+    display: flex;
+
+    p {
+        font-size: 0.9em;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: $grey;
+        margin-top: 0.5em;
+        margin-right: 0.3em;
+    }
+    
+    ul {
+        list-style: none;
         display: flex;
+        flex-wrap: wrap;
 
-        p {
+        li {
             font-size: 0.9em;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: $grey;
-            margin-top: 0.5em;
-            margin-right: 0.3em;
-        }
-        
-        ul {
-            list-style: none;
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
+            padding: 0.2em 0.4em;
+            background-color: #e8f2f3;
+            margin: 0.3em 0.3em;
+            font-weight: 400;
 
-            li {
+            i {
+                color: $secondary-light;
+                margin-right: 0.3em;
+            }
+
+            span {
+                font-weight: 300;
+                margin-left: 0.4em;
+            }
+        }
+    }
+}
+
+.dashboard-page {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: block;
+    min-height: 70vh;
+
+    .dashboard-row {
+        display: flex;
+        margin: 1em 0;
+    }
+
+    .dashboard-left {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        &-top {
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            box-shadow: 2px 4px 10px 5px rgba(0,0,0, 0.05);
+            padding: 1em;
+        }
+
+        .dashboard-text {
+            border-bottom: 1px solid #edf0f1;
+            padding-bottom: 1em;
+
+            h4 {
                 font-size: 0.9em;
-                display: flex;
-                align-items: center;
-                padding: 0.2em 0.4em;
-                background-color: #e8f2f3;
-                margin: 0.3em 0.3em;
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+            h2 {
+                font-size: 1.4em;
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+            p {
+                color: $grey;
+                font-size: 0.9em;
                 font-weight: 400;
-
-                i {
-                    color: $secondary-light;
-                    margin-right: 0.3em;
-                }
+                letter-spacing: 1px;
+                text-transform: uppercase;
 
                 span {
-                    font-weight: 300;
-                    margin-left: 0.4em;
+                    font-weight: 700;
+                }
+            }
+        }
+
+        .dashboard-balance {
+
+            &-row {
+                padding: 0.8em 1em 0.8em 2em;
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid #edf0f1;
+                }
+
+                h3 {
+                    font-size: 1.4em;
+                    text-transform: uppercase;
+                    display: flex;
+                    align-items: center;
+
+                    .codn-icon-text {
+                        font-size: 0.7em;
+                        margin-left: 0.5em;
+                    }
+                }
+
+                p {
+                    font-size: 0.9em;
+                    color: $grey;
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
                 }
             }
         }
     }
+
+    .dashboard-right {
+        flex: 3;
+
+    }
+}
+.dashboard-content {
+    width: 100%;
+    padding: 0em 2em 1em 2em;
+
+    &-title {
+        font-size: 1.4em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: $grey;
+        margin-top: 1em;
+    }
+
+    table {
+        margin-bottom: 1em;
+    }
+
+    &-link {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+
+table {
+    width: 100%;
+    border: 1px solid #edf0f1;
+    border-collapse: collapse;
     
+    thead {
+        
+        th {
+            border-bottom: 2px solid $green-dim;
+            background: linear-gradient(90deg, #282f39, #39424e);
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+    }
+
+    th, td {
+        font-size: 1em;
+        padding: 0.4em 1em;
+    }
+
+    td {
+        border-bottom: 1px solid #e4e4e8;
+    }
 }

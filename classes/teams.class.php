@@ -65,7 +65,7 @@ class Teams {
             }
 
             // updating main account balance
-            $r = $m->update_balance($current_balance, $new_spent, $members[$leader]);
+            $r = $m->update_balance($current_balance, $new_spent, $members[$leader][0]);
             if (!$r['status']) {
                 $this->db->rollBack();
                 return ['status' => false, 'type' => 'insert_error', 'data' => 'Could not add the event'];

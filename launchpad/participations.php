@@ -36,30 +36,9 @@ if (!$active_participations['status']) {
 
 
 
-?>
+$header = false;
+$member_header = true;
 
-<?php if (isset($s_error) && !empty($s_error)): ?>
-    <p style="color: red"><?=$s_error?></p>
-<?php endif; ?>
-
-<?php if (isset($s_success) && !empty($s_success)): ?>
-    <p style="color: green"><?=$s_success?></p>
-<?php endif; ?>
-
-<table>
-    <?php foreach ($active_participations as $participation): ?>
-        <tr>
-            <td><?=$participation['competition_name']?></td>
-            <td><?=$participation['competition_starts']?></td>
-            <td>
-                <ul>
-                    <?php foreach ($participation['members'] as $member): ?>
-                        <li><?=$member['member_name']?> <?=($member['member_id'] === $user['member_id'])?'(YOU)':''?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </td>
-            <td><a href="<?=URL?>/launchpad/compete.php?c=<?=$participation['competition_id']?>">Compete</a></td>
-        </tr>    
-    <?php endforeach; ?>
-</table>
-
+include '../views/layout/public_header.view.php';
+include '../views/launchpad/participations.view.php';
+include '../views/layout/public_footer.view.php';
