@@ -15,8 +15,6 @@ if (!$user['status'] || $user['data']['or_account_status'] !== 'A') {
 $user = $user['data'];
 // --- auth check end
 
-var_dump($user);
-
 include '../views/layout/header.view.php';
 include '../views/organiser/dashboard.view.php';
 include '../views/layout/footer.view.php';
