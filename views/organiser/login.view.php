@@ -30,6 +30,10 @@
                 <div class="input-submit">
                     <button type="submit"><i class="fas fa-lock"></i> Authenticate</button>
                 </div>
+                <div class="input-back">
+                    <a href="<?=URL?>/organiser" class="button button-dark"><i class="fas fa-arrow-left"></i> Back</a>
+                    <a href="<?=URL?>/organiser/signup.php" class="button button-orange">Make a account <i class="fas fa-arrow-right"></i></a>
+                </div>
             </form>
         </div>
     </div>
