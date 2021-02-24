@@ -106,9 +106,9 @@
         let address = document.querySelector('.organiser-address').classList;
 
         if (!document.querySelector('#location_p').checked) {
-            address.remove('remove');
-        } else {
             address.add('remove');
+        } else {
+            address.remove('remove');
         }
     }
     document.querySelector('#location_p').addEventListener('change', (e) => {

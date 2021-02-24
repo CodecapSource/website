@@ -91,6 +91,31 @@ function get_event_type_text ($event_type)
     return '';
 }
 
+function get_otransaction_type_text ($transaction_type)
+{
+    if ($transaction_type === 'D') {
+        return 'Deposit';
+    }
+    if ($transaction_type === 'W') {
+        return 'Withdraw';
+    }
+    if ($transaction_type === 'E') {
+        return 'Event';
+    }
+    return '';
+}
+
+function get_otransaction_status_text ($status_type)
+{
+    if ($status_type === 'C') {
+        return 'Completed';
+    }
+    if ($status_type === 'P') {
+        return 'Pending';
+    }
+    return '';
+}
+
 function generate_random_string($length = 10)
 {
     return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);

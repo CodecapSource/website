@@ -96,7 +96,7 @@ class Vouchers {
             }
 
             $this->db->commit();
-            return ['status' => true, 'type' => 'success', 'data' => 'Event successfully added.'];
+            return ['status' => true, 'type' => 'success', 'data' => 'Transaction successfully added.'];
 
 
         } catch(PDOException $e) {

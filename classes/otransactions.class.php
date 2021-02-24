@@ -35,6 +35,19 @@ class Otransactions
         $this->status = $status;
     }
 
+    public function get_every ()
+    {
+        $q = "SELECT * FROM `{$this->table_name}` JOIN `organisers` ON `otransaction_or_id` = `or_id`";
+        $s = $this->db->prepare($q);
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.get_every - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+
+        return ['status' => true, 'type' => 'success', 'data' => $s->fetchAll()];
+    }
+
     public function save ()
     {
         $r = 'otransaction';

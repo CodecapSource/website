@@ -3,7 +3,7 @@
 </div>
 
 <h1 class="o-title">Add competition</h1>
-<h3 class="o-title-sub"><?=$event['event_name']?> - (<small><?=normal_date($event['event_happen_on'])?></small> <b>To</b> <small><?=normal_date($event['event_ends_on'])?></small>)</h3>
+<h3 class="o-title-sub pt-0"><?=$event['event_name']?> - (<small><?=normal_date($event['event_happen_on'])?></small> <b>To</b> <small><?=normal_date($event['event_ends_on'])?></small>)</h3>
 
 <?php if (!empty($errors)): ?>
     <div class="message error"><?php foreach($errors as $error): ?> <?=$error . '. '?> <?php endforeach; ?></div>
@@ -51,12 +51,12 @@
 
     <div class="input input-text">  
         <label for="about">About Competition</label>
-        <textarea name="about" id="about" cols="30" rows="10" placeholder="about competition"></textarea>
+        <textarea name="about" id="about" cols="30" rows="10" placeholder="about competition"><?=$_POST['about'] ?? '' ?></textarea>
     </div>
 
     <div class="input input-text">  
         <label for="rules">Competition Rules</label>
-        <textarea name="rules" id="rules" cols="30" rows="10" placeholder="competition rules"></textarea>
+        <textarea name="rules" id="rules" cols="30" rows="10" placeholder="competition rules"><?=$_POST['rules'] ?? '' ?></textarea>
     </div>
 
     

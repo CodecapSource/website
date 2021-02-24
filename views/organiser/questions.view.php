@@ -3,7 +3,7 @@
     </div>
 
     <h1 class="o-title">Questions</h1>
-    <h3 class="o-title-sub"><?=$competition['competition_name']?></h3>
+    <h3 class="o-title-sub pt-0"><?=$competition['competition_name']?></h3>
 
     <table>
         <thead>
@@ -20,7 +20,7 @@
                 <td><?=$question['question_title']?></td>
                 <td><?=$question['question_body']?></td>
                 <td><?=$question['question_points']?></td>
-                <td><a href="<?=URL?>/organiser/questions.php?d=<?=$question['question_id']?>" class="button button-orange">Delete</a></td>
+                <td><a href="<?=URL?>/organiser/questions.php?c=<?=$competition['competition_id']?>&d=<?=$question['question_id']?>" class="button button-orange">Delete</a></td>
             </tr>
             <?php endforeach; ?>
         </tbody>

@@ -41,13 +41,17 @@
             </div>
 
             <ul class="organiser-left-nav">
+                <li><a href="<?=URL?>/organiser/dashboard.php">Dashboard</a></li>
                 <li><h3>Events</h3></li>
                 <li><a href="<?=URL?>/organiser/add_event.php">Add Event</a></li>
                 <li><a href="<?=URL?>/organiser/events.php">View Events</a></li>
-                <li><h3>Competitions</h3></li>
-                <li><a href="<?=URL?>/organiser/add_competition.php">Add Competition</a></li>
-                <li><a href="<?=URL?>/organiser/competitions.php">View Competition</a></li>
+                <li><h3>Transactions</h3></li>
+                <li><a href="<?=URL?>/organiser/transactions.php?d">Deposits</a></li>
+                <li><a href="<?=URL?>/organiser/transactions.php?w">Withdrawals</a></li>
+                <li><a href="<?=URL?>/organiser/transactions.php?e">Events</a></li>
+                <li><a href="<?=URL?>/organiser/transactions.php">All Transactions</a></li>
                 <li><h3>Misc.</h3></li>
+                <li><a href="<?=URL?>/organiser/settings.php">Settings</a></li>
                 <li><a href="<?=URL?>/organiser/logout.php">Logout</a></li>
             </ul>
 
@@ -65,7 +69,7 @@
                 
                 <div class="mheader-end">
                     <div class="mheader-end-link"><a href="<?=URL?>/contact.php">Contact Us</a></div>
-                    <a href="<?=URL?>/launchpad/dashboard.php" class="mheader-end-profile">
+                    <a href="<?=URL?>/organiser/settings.php" class="mheader-end-profile">
                         <div class="mheader-end-profile-text">
                             <p>Session logged</p>
                             <h3><?=$user['or_name']?></h3>

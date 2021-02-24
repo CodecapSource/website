@@ -137,6 +137,7 @@ if ($user['or_balance'] < $creation_cost) {
             $result = $e->create($event_name, $user['or_id'], $organiser_name, $organiser_about, $event_about, $happen_on, $ends_on, $location_type, $country, $address, $t, $o);
 
             if ($result['status']) {
+                $_SESSION['message'] = ['type' => 'success', 'data' => 'Event added successfully. Add competitions to event below.'];
                 go(URL . '/organiser/view_event.php?e='.$result['event_id']);
             }
             array_push($errors, $result['data']);

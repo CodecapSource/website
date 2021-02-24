@@ -86,8 +86,12 @@ if (isset($_POST) && !empty($_POST)) {
         } else {
             $l_diff = get_date_difference($starts_on, $event['event_happen_on']);
             $u_diff = get_date_difference($starts_on, $event['event_ends_on']);
-            if (!$l_diff["positive"] || $u_diff["positive"]) {
-                array_push($errors, 'Starts on should be within event time.');
+            var_dump($l_diff);
+            
+            if (!($l_diff['years'] === 0 && $l_diff['months'] === 0 && $l_diff['days'] === 0 && $l_diff['hours'] === 0 && $l_diff['minutes'] === 0 && $l_diff['seconds'] === 0)) {
+                if (!$l_diff["positive"] || $u_diff["positive"]) {
+                    array_push($errors, 'Starts on should be within event time.');
+                }
             }
         }
     } else {
