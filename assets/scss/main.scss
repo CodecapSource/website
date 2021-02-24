@@ -637,6 +637,21 @@ a {
             font-weight: 400;
             color: $secondary;
             letter-spacing: 1px;
+
+            &.location {
+                display: flex;
+                align-items: center;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-weight: 700;
+                font-size: 0.8em;
+                margin-top: 1em;
+
+                img {
+                    width: 16px;
+                    height: auto;
+                }
+            }
         }
     }
 
@@ -1127,6 +1142,7 @@ a {
         }
 
         &-right {
+            align-self: center;
 
             &-comp {
                 text-align: right;
@@ -1215,6 +1231,7 @@ a {
             margin: 1em;
             padding-bottom: 1em;
             border-bottom: 2px solid rgba(57, 66, 78, 0.2);
+            display: block;
 
             h3 {
                 font-size: 0.9em;
@@ -1747,5 +1764,21 @@ table {
     letter-spacing: 1px;
     color: $grey;
     padding: 1em 0;
+}
+
+.reviewer-row {
+    width: 100%;
+    display: flex;
+
+    .reviewer-table {
+        flex: 1;
+        margin-right: 2em;
+        padding-right: 2em;
+        border-right: 1px solid #e0e0e0;
+    }
+
+    .reviewer-form {
+        flex: 1;
+    }
 }
 

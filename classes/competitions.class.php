@@ -126,6 +126,82 @@ class Competitions
         return ['status' => true, 'type' => 'success', 'data' => $s->fetch()];
     }
 
+    public function get_reviewers_of_competition ($competition_id)
+    {
+        $q = "SELECT * FROM `reviewers` JOIN `".$this->table_name."` ON `reviewer_competition_id` = `competition_id` WHERE `reviewer_competition_id` = :r";
+        
+        $s = $this->db->prepare($q);
+        $s->bindParam(":r", $competition_id);
+
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.get_reviewers_of_competition - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+
+        if (!$s->rowCount()) {
+            return ['status' => false, 'type' => 'empty', 'data' => 'Reviewers not found.'];
+        }
+
+        return ['status' => true, 'type' => 'success', 'data' => $s->fetchAll()];
+    }
+
+    public function get_reviewer_by_in_competition ($col, $val, $competition_id)
+    {
+        $q = "SELECT * FROM `reviewers` JOIN `".$this->table_name."` ON `reviewer_competition_id` = `competition_id` WHERE `$col` = :v AND `reviewer_competition_id` = :r";
+        
+        $s = $this->db->prepare($q);
+        $s->bindParam(":v", $val);
+        $s->bindParam(":r", $competition_id);
+
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.get_reviewer_by_in_competition - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+
+        if (!$s->rowCount()) {
+            return ['status' => false, 'type' => 'empty', 'data' => 'Reviewer not found.'];
+        }
+
+        return ['status' => true, 'type' => 'success', 'data' => $s->fetch()];
+    }
+
+    public function insert_reviewer ($email, $competition_id)
+    {
+        $q = "INSERT INTO `reviewers` (`reviewer_email`, `reviewer_competition_id`, `reviewer_created`) VALUE (:e, :c, :dt)";
+        
+        $s = $this->db->prepare($q);
+        $s->bindParam(":e", $email);
+        $s->bindParam(":c", $competition_id);
+        $dt = current_date();
+        $s->bindParam(":dt", $dt);
+
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.insert_reviewer - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+
+        return ['status' => true, 'type' => 'success', 'data' => 'Reviewer successfully inserted'];
+    }
+
+    public function delete_reviewer ($reviewer_id)
+    {
+        $q = "DELETE FROM `reviewers` WHERE `reviewer_id` = :i";
+        
+        $s = $this->db->prepare($q);
+        $s->bindParam(":i", $reviewer_id);
+        
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.delete_reviewer - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+
+        return ['status' => true, 'type' => 'success', 'data' => 'Reviewer successfully deleted'];
+    }
+
     public function validate_compete ($member, $competition, Teams $t)
     {
         $q = "SELECT * FROM `participants` JOIN `members` ON `participant_member_id` = `member_id` JOIN `teams` ON `participant_team_id` = `team_id` WHERE `member_id` = :mi AND `team_competition_id` = :ci";

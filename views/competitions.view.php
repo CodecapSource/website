@@ -21,12 +21,12 @@
             <div class="comp-page-info">Showing <?=$_no_of_competitions?> Result out of <?=$_no_of_competitions?></div>
 
             <?php foreach ($competitions as $competition): ?>
-            <a href="<?=URL?>/launchpad/participate.php?c=<?=$competition['competition_id']?>" class="comp-page-row">
+            <div class="comp-page-row">
                 <div class="comp-left">
-                    <div class="comp-left-top">
+                    <a href="<?=URL?>/launchpad/participate.php?c=<?=$competition['competition_id']?>" class="comp-left-top">
                         <h3><?=$competition['competition_name']?></h3>
                         <p><?=$competition['competition_about']?></p>
-                    </div>
+                    </a>
                     <div class="comp-left-bottom">
                         <div class="comp-left-bottom-box comp-left-bottom-2">
                             <p>Location</p>
@@ -77,7 +77,7 @@
                         <p><?=$competition['event_about']?></p>
                     </div>
                 </div>
-            </a>
+            </div>
             <?php endforeach; ?>
         </div>
     </div>
