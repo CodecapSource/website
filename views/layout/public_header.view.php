@@ -81,8 +81,8 @@
                         <div class="header-stats-text-row">
                             <h3><?=$user['member_balance']?></h3>
                             <div class="header-stats-text-row-button">
-                                <a href="" class="button button-green">Add More</a>
-                                <a href="" class="button button-golden">Withdraw</a>
+                                <a href="<?=URL?>/launchpad/deposit.php" class="button button-green">Add More</a>
+                                <a href="<?=URL?>/launchpad/withdraw.php" class="button button-golden">Withdraw</a>
                             </div>
                         </div>
                     </div>

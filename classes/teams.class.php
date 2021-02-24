@@ -58,7 +58,7 @@ class Teams {
             $leader = $r['leader'];
 
             // saving transaction
-            $r = $this->add_team_transaction($members[$leader][0], $cost, $previous_balance, $current_balance, $transaction_info);
+            $r = $this->add_team_transaction($members[$leader][0], $cost, $previous_balance, $current_balance, $transaction_info, 'P');
             if (!$r['status']) {
                 $this->db->rollBack();
                 return ['status' => false, 'type' => 'insert_error', 'data' => 'Could not add the participation'];
@@ -98,13 +98,14 @@ class Teams {
         return ['status' => true, 'team_id' => $this->db->lastInsertId()];
     }
 
-    public function add_team_transaction ($member, $amount, $previous_balance, $current_balance, $info)
+    public function add_team_transaction ($member, $amount, $previous_balance, $current_balance, $info, $type)
     {
         $cols = "(`mt_member_id`, `mt_type`, `mt_amount`, `mt_previous_balance`, `mt_current_balance`, `mt_info`, `mt_created`)";
-        $vals = "(:mi, 'P', :a, :pb, :cb, :in, :dt)";
+        $vals = "(:mi, :t, :a, :pb, :cb, :in, :dt)";
         $q = "INSERT INTO `member_transactions` $cols VALUE $vals";
         $s = $this->db->prepare($q);
         $s->bindParam(":mi", $member);
+        $s->bindParam(":t", $type);
         $s->bindParam(":a", $amount);
         $s->bindParam(":pb", $previous_balance);
         $s->bindParam(":cb", $current_balance);

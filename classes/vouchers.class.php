@@ -105,6 +105,38 @@ class Vouchers {
         }
     }
 
+    public function redeem_member_voucher ($member, $voucher, Members $m, Teams $t, $worth, $previous, $current, $info)
+    {
+        try {
+            $this->db->beginTransaction();
+
+            $r = $m->update_balance($current, $member['member_spent'], $member['member_id']);
+            if (!$r['status']) {
+                $this->db->rollBack();
+                return ['status' => false, 'type' => 'transaction_error', 'data' => 'Transaction step 1 failure'];
+            }
+            
+            $r = $t->add_team_transaction($member['member_id'], $worth, $previous, $current, $info, 'D');
+            if (!$r['status']) {
+                $this->db->rollBack();
+                return ['status' => false, 'type' => 'transaction_error', 'data' => 'Transaction step 2 failure'];
+            }
+
+            $r = $this->update(['voucher_redeemed' => 'Y'], $voucher['voucher_id']);
+            if (!$r['status']) {
+                $this->db->rollBack();
+                return ['status' => false, 'type' => 'transaction_error', 'data' => 'Transaction step 3 failure'];
+            }
+
+            $this->db->commit();
+            return ['status' => true, 'type' => 'success', 'data' => 'Transaction successfully added.'];
+            
+        } catch(PDOException $e) {
+            $this->db->rollBack();
+            return ['status' => false, 'type' => 'transaction_error', 'data' => 'Could not complete the transaction'];
+        }
+    }
+
     public function update ($data, $voucher_id)
     {
         $vals = "";

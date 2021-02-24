@@ -17,7 +17,7 @@
                         <p>Spent</p>
                     </div>
                     <div class="dashboard-balance-row">
-                        <h3><?=$user['member_spent']?> <span class="codn-icon-text">Codn</span></h3>
+                        <h3><?=$user['member_withdrawn']?> <span class="codn-icon-text">Codn</span></h3>
                         <p>Withdrawn</p>
                     </div>
                 </div>

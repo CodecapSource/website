@@ -40,6 +40,10 @@
                 <div class="input-submit">
                     <button type="submit"><i class="fas fa-arrow-right"></i> Start</button>
                 </div>
+                <div class="input-back">
+                    <a href="<?=URL?>/launchpad" class="button button-dark"><i class="fas fa-arrow-left"></i> Back</a>
+                    <a href="<?=URL?>/launchpad/login.php" class="button button-orange">Go to Login <i class="fas fa-arrow-right"></i></a>
+                </div>
             </form>
         </div>
     </div>

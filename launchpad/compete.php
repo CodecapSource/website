@@ -49,7 +49,7 @@ $start_diff = get_date_difference($competition['competition_starts'], current_da
 $end_diff = get_date_difference($competition['competition_ends'], current_date());
 
 if ($start_diff['positive']) {
-    $_SESSION['message'] = ['type' => 'error', 'data' => "Competition is not yet started."];
+    $_SESSION['message'] = ['type' => 'error', 'data' => "Competition is not started yet. Competition will start in ".$start_diff['days'].' days '.$start_diff['hours'].' hours '.$start_diff['minutes'].' minutes '.$start_diff['seconds'].' seconds.'];
     go (URL . '/launchpad/participations.php');
 }
 if (!$end_diff['positive']) {
