@@ -35,7 +35,7 @@ class Teams {
         return ['status' => true, 'leader' => $leader];
     }
 
-    public function create_team ($members, $competition, $cost, $previous_balance, $current_balance, $new_spent, $transaction_info, Members $m)
+    public function create_team ($members, $competition, $cost, $previous_balance, $current_balance, $new_spent, $transaction_info, Members $m, Organiser $o, Otransactions $t, $or_id)
     {
         try {
             
@@ -45,7 +45,7 @@ class Teams {
             $r = $this->add($competition);
             if (!$r['status']) {
                 $this->db->rollBack();
-                return ['status' => false, 'type' => 'insert_error', 'data' => 'Could not add the participation'];
+                return ['status' => false, 'type' => 'insert_error', 'data' => 'Transaction step 1 failure'];
             }
             $team_id = $r['team_id'];
             
@@ -53,7 +53,7 @@ class Teams {
             $r = $this->add_participants ($members, $team_id);
             if (!$r['status']) {
                 $this->db->rollBack();
-                return ['status' => false, 'type' => 'insert_error', 'data' => 'Could not add the participation'];
+                return ['status' => false, 'type' => 'insert_error', 'data' => 'Transaction step 2 failure'];
             }
             $leader = $r['leader'];
 
@@ -61,18 +61,42 @@ class Teams {
             $r = $this->add_team_transaction($members[$leader][0], $cost, $previous_balance, $current_balance, $transaction_info, 'P');
             if (!$r['status']) {
                 $this->db->rollBack();
-                return ['status' => false, 'type' => 'insert_error', 'data' => 'Could not add the participation'];
+                return ['status' => false, 'type' => 'insert_error', 'data' => 'Transaction step 3 failure'];
             }
 
             // updating main account balance
             $r = $m->update_balance($current_balance, $new_spent, $members[$leader][0]);
             if (!$r['status']) {
                 $this->db->rollBack();
-                return ['status' => false, 'type' => 'insert_error', 'data' => 'Could not add the event'];
+                return ['status' => false, 'type' => 'insert_error', 'data' => 'Transaction step 4 failure'];
+            }
+
+            // getting organiser details
+            $or = $o->get_one('or_id', $or_id);
+            if (!$or['status']) {
+                $this->db->rollBack();
+                return ['status' => false, 'type' => 'insert_error', 'data' => 'Transaction step 5 failure'];
+            }
+            $or = $or['data'];
+
+            // saving organiser's transaction
+            $info = "Team ID#$team_id participated in Competition ID#".$competition;
+            $t->set_values('E', $or['or_id'], 'S', '', $cost, $or['or_balance'], $or['or_balance'] + $cost, $info, 'C');
+            $r = $t->save();
+            if (!$r['status']) {
+                $this->db->rollBack();
+                return ['status' => false, 'type' => 'insert_error', 'data' => 'Transaction step 6 failure'];
+            }
+
+            // updating organiser's account balance
+            $r = $o->update_balance($current_balance, $or['or_id']);
+            if (!$r['status']) {
+                $this->db->rollBack();
+                return ['status' => false, 'type' => 'insert_error', 'data' => 'Transaction step 7 failure'];
             }
 
             $this->db->commit();
-            return ['status' => true, 'type' => 'success', 'data' => 'Event successfully added.'];
+            return ['status' => true, 'type' => 'success', 'data' => 'Participation added successfully.'];
 
         } catch(PDOException $e) {
             $this->db->rollBack();

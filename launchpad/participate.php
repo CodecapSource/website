@@ -114,12 +114,14 @@ if (isset($_POST) && !empty($_POST)) {
 
                     // -- TODO: create pdo transaction deduct balance, add participant table
                     $t = new Teams($db);
+                    $o = new Organiser($db);
+                    $ot = new Otransactions($db);
 
                     $previous_balance = $user['member_balance'];
                     $current_balance = $previous_balance - $cost;
                     $new_spent = $user['member_spent'] + $cost;
                     $info = "Participation fee deduction for '".$competition['competition_name']."'";
-                    $r = $t->create_team($confirm_members, $competition['competition_id'], $cost, $previous_balance, $current_balance, $new_spent, $info, $m);
+                    $r = $t->create_team($confirm_members, $competition['competition_id'], $cost, $previous_balance, $current_balance, $new_spent, $info, $m, $o, $ot, $competition['event_or_id']);
 
                     if ($r['status']) {
                         
