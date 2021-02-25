@@ -84,7 +84,7 @@ if (!$submissions['status']) {
     // first time visiting competition by participant
     $r = $q->set_blank_submissions($participation['team_id'], $questions);
     if ($r['status']) {
-        $_SESSION['message'] = ['type' => 'error', 'data' => "Unable to find any questions in competition."];
+        $_SESSION['message'] = ['type' => 'success', 'data' => "You have started your participation."];
         go (URL . '/launchpad/compete.php?c='.$competition['competition_id']);
     } else {
         $_SESSION['message'] = ['type' => 'error', 'data' => "Unable to start the competition."];
@@ -93,24 +93,36 @@ if (!$submissions['status']) {
 }
 $submissions = $submissions['data'];
 
-?>
+// saving submission data
 
+if (isset($_POST) && !empty($_POST)) {
 
-<h1>Competition - <strong><?=$competition['competition_name']?></strong></h1>
-<?php if(count($participation['members']) > 0): ?>
-    <p>Fellow members - <strong><?php foreach($participation['members'] as $member): ?><?=$member['member_name']?> &nbsp;<?php endforeach?></strong></p>
-<?php endif; ?>
+    $s_id = normal_text($_POST['submission']);
+    $t_id = normal_text($_POST['team']);
+    $q_id = normal_text($_POST['question']);
+    $code = normal_text($_POST['code']);
 
-<h3>Question</h3>
-<?php foreach($submissions as $submission): ?>
-    <?=$submission['question_title']?>
-    
-    <input type="hidden" name="question" id="<?=$submissions['question_id']?>">
-    <input type="hidden" name="submission" id="<?=$submissions['submission_id']?>">
-    <input type="hidden" name="team" id="<?=$submissions['submission_team_id']?>">
+    $dt = current_date();
+    $r = $q->update_submission(['submission_text' => $code, 'submission_updated' => $dt], $s_id);
+    if ($r['status']) {
+        $_SESSION['message'] = ['type' => 'success', 'data' => "Data saved successfully."];
+        go (URL . '/launchpad/compete.php?c='.$competition['competition_id']);
+    } else {
+        $_SESSION['message'] = ['type' => 'error', 'data' => "Unable to save the data. Try again."];
+        go (URL . '/launchpad/compete.php?c='.$competition['competition_id']);
+    }
 
-    
-    
-    <h5>Problem Statement</h5>
-    <?=$submission['question_body']?>
-<?php endforeach; ?>
+}
+
+$default_code = false;
+if (empty($_POST) && empty(normal_text($submissions[0]['submission_text']))) {
+    $default_code = true;
+}
+
+$header = false;
+$member_header = true;
+$code_mirror = true;
+
+include '../views/layout/public_header.view.php';
+include '../views/launchpad/compete.view.php';
+include '../views/layout/public_footer.view.php';

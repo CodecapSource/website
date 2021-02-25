@@ -103,5 +103,28 @@ class Questions
 
         return ['status' => true, 'type' => 'success', 'data' => 'Data is successfully inserted.'];
     }
+    
+    public function update_submission ($data, $submission_id)
+    {
+        $vals = "";
+        foreach ($data as $c => $v) {
+            if (!empty($vals)) {
+                $vals .= ", ";
+            }
+            $vals .= "`$c` = '$v'";
+        }
+
+        $q = "UPDATE `submissions` SET $vals WHERE `submission_id` = :s";
+        $s = $this->db->prepare($q);
+        $s->bindParam(":s", $submission_id);
+
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.update_submission - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+
+        return ['status' => true, 'type' => 'success', 'data' => 'Updated.'];
+    }
 
 }

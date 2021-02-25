@@ -91,6 +91,25 @@ class Members
         return ['status' => false, 'type' => 'empty', 'data' => 'no participations found!'];
 
     }
+
+    public function get_member_transactions ($member_id)
+    {
+        $q = "SELECT * FROM `member_transactions` WHERE `mt_member_id` = :m";
+
+        $s = $this->db->prepare($q);
+        $s->bindParam(":m", $member_id);
+
+        if (!$s->execute()) {
+            $failure = $this->class_name.'.get_member_transactions - E.02: Failure';
+            $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));
+            return ['status' => false, 'type' => 'query', 'data' => $failure];
+        }
+
+        if ($s->rowCount() > 0) {
+            return ['status' => true, 'type' => 'success', 'data' => $s->fetchAll()];
+        }
+        return ['status' => false, 'type' => 'empty', 'data' => 'no transactions found!'];
+    }
     
 
 }

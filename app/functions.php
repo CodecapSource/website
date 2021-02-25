@@ -102,6 +102,9 @@ function get_otransaction_type_text ($transaction_type)
     if ($transaction_type === 'E') {
         return 'Event';
     }
+    if ($transaction_type === 'P') {
+        return 'Participation';
+    }
     return '';
 }
 

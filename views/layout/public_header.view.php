@@ -11,6 +11,14 @@
 
     <link rel="stylesheet" href="<?=URL?>/assets/css/main.css">
 
+    <?php if (isset($code_mirror)): ?>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/codemirror.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/theme/material-ocean.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/addon/edit/matchbrackets.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/mode/python/python.min.js"></script>
+    <?php endif; ?>
+
     <script src="https://kit.fontawesome.com/af845f7d3f.js" crossorigin="anonymous"></script>
 
 </head>
@@ -82,7 +90,7 @@
                             <h3><?=$user['member_balance']?></h3>
                             <div class="header-stats-text-row-button">
                                 <a href="<?=URL?>/launchpad/deposit.php" class="button button-green">Add More</a>
-                                <a href="<?=URL?>/launchpad/withdraw.php" class="button button-golden">Withdraw</a>
+                                <!-- <a href="<?=URL?>/launchpad/withdraw.php" class="button button-golden">Withdraw</a> -->
                             </div>
                         </div>
                     </div>

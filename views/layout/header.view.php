@@ -33,7 +33,7 @@
                             <h3><?=$user['or_balance']?></h3>
                             <div class="header-stats-text-row-button">
                                 <a href="<?=URL?>/organiser/deposit.php" class="button button-green">Add More</a>
-                                <a href="<?=URL?>/organiser/withdraw.php" class="button button-golden">Withdraw</a>
+                                <!-- <a href="<?=URL?>/organiser/withdraw.php" class="button button-golden">Withdraw</a> -->
                             </div>
                         </div>
                     </div>
