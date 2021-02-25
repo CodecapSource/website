@@ -35,10 +35,11 @@ class Otransactions
         $this->status = $status;
     }
 
-    public function get_every ()
+    public function get_every ($organiser)
     {
-        $q = "SELECT * FROM `{$this->table_name}` JOIN `organisers` ON `otransaction_or_id` = `or_id`";
+        $q = "SELECT * FROM `{$this->table_name}` JOIN `organisers` ON `otransaction_or_id` = `or_id` WHERE `or_id` = :o";
         $s = $this->db->prepare($q);
+        $s->bindParam(":o", $organiser);
         if (!$s->execute()) {
             $failure = $this->class_name.'.get_every - E.02: Failure';
             $this->logs->create($this->class_name_lower, $failure, json_encode($s->errorInfo()));

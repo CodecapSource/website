@@ -18,7 +18,7 @@ $user = $user['data'];
 
 $t = new Otransactions($db);
 
-$transactions = $t->get_every();
+$transactions = $t->get_every($user['or_id']);
 
 $page_title = "Transactions";
 

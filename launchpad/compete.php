@@ -122,6 +122,7 @@ if (empty($_POST) && empty(normal_text($submissions[0]['submission_text']))) {
 $header = false;
 $member_header = true;
 $code_mirror = true;
+$compilation_api = "http://185.82.200.151/index.php";
 
 include '../views/layout/public_header.view.php';
 include '../views/launchpad/compete.view.php';

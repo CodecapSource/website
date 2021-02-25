@@ -115,7 +115,7 @@ print(hello())
     $('#run').on('click', (e) => {
 
         $('.compete-l-output').addClass('loading');
-        $.ajax('http://185.82.200.151/index.php', {
+        $.ajax('<?=$compilation_api?>', {
             method: "POST",
             data: {code: editor.getValue()},
             success: function (data) {
