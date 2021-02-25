@@ -2324,4 +2324,80 @@ table td .button {
   text-align: center;
   line-height: 1;
 }
+
+.contact {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  width: 600px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  -webkit-box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.05);
+          box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.05);
+  padding: 2em;
+}
+
+.contact-l {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border-right: 1px solid #f8fcfc;
+  margin-right: 1em;
+}
+
+.contact-l-top h3 {
+  display: table;
+  font-size: 1.4em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.contact-l-top h3 span {
+  font-size: 0.8em;
+  display: block;
+  text-align: right;
+  font-weight: 700;
+}
+
+.contact-l-social {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.contact-l-social a {
+  color: #84a29e;
+  border: 1px solid #e0e0e0;
+  padding: 0.4em 0.4em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 50%;
+  margin: 0.2em;
+}
+
+.contact-l-social a i {
+  font-size: 1.2em;
+}
+
+.contact-l-main {
+  margin-top: 1em;
+}
+
+.contact-l-main p {
+  font-size: 1em;
+  margin-bottom: 1em;
+}
+
+.contact-r {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+}
 /*# sourceMappingURL=main.css.map */
