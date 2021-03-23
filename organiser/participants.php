@@ -15,6 +15,10 @@ if (!$user['status'] || $user['data']['or_account_status'] !== 'A') {
 $user = $user['data'];
 // --- auth check end
 
+if (!isset($_GET['c']) || !is_numeric($_GET['c'])) {
+    go (URL . '/organiser/events.php');
+}
+
 $c = new Competitions($db);
 $competition = $c->get_one_competition_by('competition_id', normal_text($_GET['c']));
 if (!$competition['status']) {
@@ -33,22 +37,16 @@ if (!$participants['status']) {
 } else {
     $participants = $participants['data'];
 }
+
 // sorting participants team vise
 $teams = [];
-foreach ($participants as $member) {
-    if (!array_key_exists($member['team_id'], $teams)) {
-        $teams[$member['team_id']] = [];
+foreach ($participants as $p) {
+    if (!array_key_exists($p['team_id'], $teams)) {
+        $teams[$p['team_id']] = [];
     }
-    $teams[$member['team_id']][] = $member;
-}
-
-$submissions = $p->get_submissions($competition['competition_id']);
-if (!$submissions['status']) {
-    $submissions = [];
-} else {
-    $submissions = $submissions['data'];
+    $teams[$p['team_id']][] = $p;
 }
 
 include '../views/layout/header.view.php';
-include '../views/organiser/submissions.view.php';
+include '../views/organiser/participants.view.php';
 include '../views/layout/footer.view.php';
